@@ -566,16 +566,24 @@ function startMusic(){
       console.warn('[Music] play() rejected:', err && err.name);
     });
   }
-  function playVictory(){
-  // Tắt nhạc nền để victory nổi bật
+  updateMusicUI();
+}
+
+function playVictory(){
   bgAudio.pause();
   try{
     sfxVictory.currentTime = 0;
     var p = sfxVictory.play();
     if(p && p.catch) p.catch(function(err){
       console.warn('[Victory] play() rejected:', err && err.name);
+      // Nếu victory không phát được (thiếu file, sai codec…) thì bật lại nhạc nền
+      bgAudio.play().catch(function(){});
+      updateMusicUI();
     });
-  }catch(e){}
+  }catch(e){
+    bgAudio.play().catch(function(){});
+    updateMusicUI();
+  }
 }
 
 function stopVictory(){
@@ -583,8 +591,6 @@ function stopVictory(){
     sfxVictory.pause();
     sfxVictory.currentTime = 0;
   }catch(e){}
-}
-  updateMusicUI();
 }
 
 function unlockMusic(e){
@@ -615,6 +621,9 @@ bgAudio.addEventListener('error', function(){
 });
 sfxHit.addEventListener('error', function(){
   console.error('[SFX] Không tải được hit.mp3 — kiểm tra tên và vị trí file.');
+});
+  sfxVictory.addEventListener('error', function(){
+  console.error('[Victory] Không tải được victory.mp3 — kiểm tra tên file và vị trí (cùng thư mục index.html).');
 });
 
 // Phát tiếng đánh — gọi mỗi khi có đòn trúng
@@ -780,6 +789,7 @@ function updatePickers(){
 function beginGame(){
   var nameP1El = document.getElementById('nameP1');
   var nameP2El = document.getElementById('nameP2');
+   stopVictory();  
 
   SETUP.p1Name = (nameP1El && nameP1El.value.trim()) || (SETUP.mode === '2p' ? 'Người chơi 1' : 'Bạn');
   if(SETUP.mode === '2p'){
@@ -1252,7 +1262,7 @@ document.getElementById('btnBeginGame').addEventListener('click', function(){
 document.getElementById('btnAgain').addEventListener('click', function(){
   document.getElementById('confetti').innerHTML = '';
   stopVictory();                 // ← THÊM: dừng victory
-  bgAudio.paused = false;        // đề phòng bgAudio bị pause từ trước
+
   bgAudio.play().catch(function(){});   // ← THÊM: bật lại nhạc nền
   updateMusicUI();
   show('start');
