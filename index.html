@@ -487,13 +487,163 @@ var CHAR_NAME = { octo:'Bạch tuộc', shark:'Cá mập' };
 var HEART_SVG = '<svg class="heart" viewBox="0 0 24 24" fill="#ef4444"><path d="M12 21s-7.5-4.9-10-9.3C.4 8.6 2 5 5.2 5c2 0 3.4 1.1 4.3 2.4h5C15.4 6.1 16.8 5 18.8 5 22 5 23.6 8.6 22 11.7 19.5 16.1 12 21 12 21z"/></svg>';
 var CROWN_SM = '<svg class="winner-crown" viewBox="0 0 64 44" fill="none"><path d="M6 36 L10 12 L22 24 L32 6 L42 24 L54 12 L58 36 Z" fill="#fbbf24" stroke="#b45309" stroke-width="2.5" stroke-linejoin="round"/><rect x="6" y="36" width="52" height="6" rx="3" fill="#f59e0b" stroke="#b45309" stroke-width="2"/></svg>';
 
-/* ============ QUESTION BANK ============ */
+/* ============ QUESTION BANK (Câu hỏi)  ============ */
 var QUESTIONS = [
-  {q:"Loài cá nào được mệnh danh là 'Hung thần đại dương'?", o:["Cá mập trắng lớn","Cá voi xanh","Cá ngừ đại dương","Cá đuối"], a:0},
-  {q:"Con bạch tuộc có bao nhiêu trái tim?", o:["1","2","3","4"], a:2},
-  {q:"Đại dương lớn nhất trên Trái Đất là?", o:["Đại Tây Dương","Thái Bình Dương","Ấn Độ Dương","Bắc Băng Dương"], a:1},
-  {q:"Động vật có vú lớn nhất thế giới là?", o:["Cá mập voi","Cá voi xanh","Hải tượng","Cá heo"], a:1},
-  {q:"Quốc kỳ nước Nhật Bản có hình tròn màu nào ở giữa?", o:["Xanh dương","Đỏ","Vàng","Đen"], a:1}
+  // --- DẠNG 1: ĐIỀN TỪ VÀO CÂU (FILL IN THE BLANKS) ---
+  {
+    q: "The origin of the universe is still a ________ among scientists.",
+    o: ["matter of speculation", "acceleration", "adjunct", "attraction"],
+    a: 0
+  },
+  {
+    q: "All employees must ________ the safety regulations strictly.",
+    o: ["accompany", "adhere to", "accommodate", "accumulate"],
+    a: 1
+  },
+  {
+    q: "The building has a ramp to make it ________ to wheelchair users.",
+    o: ["absurd", "adjacent", "accessible", "abstract"],
+    a: 2
+  },
+  {
+    q: "It is completely ________ to suggest that he can run 100km per hour.",
+    o: ["acceptable", "absurd", "accomplished", "added"],
+    a: 1
+  },
+  {
+    q: "The main hall can ________ up to 500 guests comfortable.",
+    o: ["account for", "accommodate", "acknowledge", "accentuate"],
+    a: 1
+  },
+  {
+    q: "Children must be ________ by an adult at all times.",
+    o: ["accompanied", "accumulated", "acquired", "adapted"],
+    a: 0
+  },
+  {
+    q: "She is an ________ pianist who has won many international awards.",
+    o: ["absurd", "adjacent", "accomplished", "added"],
+    a: 2
+  },
+  {
+    q: "You must plan your budget ________ to avoid running out of money.",
+    o: ["accurately", "actually", "accordingly", "abstractly"],
+    a: 2
+  },
+  {
+    q: "High prices ________ the lower sales this quarter.",
+    o: ["account for", "adhere to", "admit to", "acquire for"],
+    a: 0
+  },
+  {
+    q: "Dust and dirt began to ________ on the unused furniture.",
+    o: ["accentuate", "accumulate", "acknowledge", "adjust"],
+    a: 1
+  },
+  {
+    q: "Please measure the dimensions of the room ________.",
+    o: ["accurately", "accordingly", "actually", "absurdly"],
+    a: 0
+  },
+  {
+    q: "The two companies built their new offices in ________ buildings.",
+    o: ["abstract", "adjacent", "acceptable", "accomplished"],
+    a: 1
+  },
+
+  // --- DẠNG 2: DỊCH TỪ / CỤM TỪ (TRANSLATION) ---
+  {
+    q: "Từ nào trong tiếng Anh có nghĩa là 'làm nổi bật, nhấn mạnh'?",
+    o: ["Accommodate", "Accentuate", "Acknowledge", "Acquire"],
+    a: 1
+  },
+  {
+    q: "Từ 'adjunct' trong tiếng Anh mang nghĩa là gì?",
+    o: ["Sự tăng tốc", "Trừu tượng", "Hỗ trợ, phụ", "Tuân thủ"],
+    a: 2
+  },
+  {
+    q: "Từ nào đồng nghĩa với 'đạt được, thu được' (kỹ năng, kiến thức)?",
+    o: ["Adhere", "Acquire", "Admit", "Accompany"],
+    a: 1
+  },
+  {
+    q: "Từ 'acknowledge' trong tiếng Anh có nghĩa là gì?",
+    o: ["Thừa nhận", "Điều chỉnh", "Dành được", "Bám dính"],
+    a: 0
+  },
+  {
+    q: "Cụm từ nào nghĩa là 'bám / dính vào nhau'?",
+    o: ["Adhere to", "Adhere", "Account for", "Accorded"],
+    a: 1
+  },
+  {
+    q: "Từ 'attraction' có nghĩa là gì?",
+    o: ["Sự hấp dẫn, quyến rũ", "Sự phỏng đoán", "Sự tăng tốc", "Sự tiếp cận"],
+    a: 0
+  },
+  {
+    q: "Từ 'acceleration' trong tiếng Anh chỉ điều gì?",
+    o: ["Sự điều chỉnh", "Sự tích lũy", "Sự tăng tốc", "Sự thích ứng"],
+    a: 2
+  },
+  {
+    q: "Từ 'admit' mang nghĩa là gì?",
+    o: ["Dành được", "Nhận, cho phép vào trong", "Thích ứng", "Giải thích"],
+    a: 1
+  },
+
+  // --- DẠNG 3: SẮP XẾP CÂU / CẤU TRÚC (SENTENCE ARRANGEMENT) ---
+  {
+    q: "Chọn thứ tự từ đúng để tạo thành câu hoàn chỉnh: 'makeup / Her / natural / accentuates / beauty. / her'",
+    o: [
+      "Her makeup accentuates her natural beauty.",
+      "Her natural beauty accentuates her makeup.",
+      "Makeup her accentuates natural her beauty.",
+      "Her beauty accentuates natural her makeup."
+    ],
+    a: 0
+  },
+  {
+    q: "Chọn thứ tự đúng: 'must / rules. / to / You / adhere / the'",
+    o: [
+      "You must adhere rules to the.",
+      "You must adhere to the rules.",
+      "You adhere must to the rules.",
+      "The rules must adhere to you."
+    ],
+    a: 1
+  },
+  {
+    q: "Chọn thứ tự đúng: 'for / 50% / accounts / Exports / total / of / revenue.'",
+    o: [
+      "Exports total accounts for 50% of revenue.",
+      "Revenue accounts for 50% of total exports.",
+      "Exports account for 50% of total revenue.",
+      "Accounts for exports 50% of total revenue."
+    ],
+    a: 2
+  },
+  {
+    q: "Chọn thứ tự đúng: 'He / mistakes. / his / refused / acknowledge / to'",
+    o: [
+      "He refused to acknowledge his mistakes.",
+      "He acknowledged to refuse his mistakes.",
+      "His mistakes refused to acknowledge he.",
+      "He to acknowledge refused his mistakes."
+    ],
+    a: 0
+  },
+  {
+    q: "Chọn thứ tự đúng: 'was / into / allowed / hospital. / She / to / be / admitted / the'",
+    o: [
+      "She was admitted to be allowed into the hospital.",
+      "She was allowed to be admitted into the hospital.",
+      "Allowed to be admitted she was into the hospital.",
+      "She admitted to be allowed into the hospital."
+    ],
+    a: 1
+  }
 ];
 
 /* ============ SETTINGS ============ */
