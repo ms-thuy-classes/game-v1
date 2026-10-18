@@ -218,7 +218,7 @@
     pointer-events:none;z-index:6;
     filter:drop-shadow(0 3px 8px rgba(0,0,0,.5));
   }
-  .fighter.crying .cry-icon{opacity:1;transform:scale(1) rotate(0);animation:cryBob .7s ease-in-out infinite alternate}
+  .fighter.crying .cry-icon{opacity:1;transform:scale(1) rotate(0);animation:cryBob .5s ease-in-out infinite alternate}
   @keyframes cryBob{from{transform:translateY(0) rotate(-6deg)}to{transform:translateY(-6px) rotate(6deg)}}
 
   .fx-layer{position:absolute;inset:0;pointer-events:none;z-index:4}
@@ -544,6 +544,8 @@ var musicBtn = document.getElementById('btnMusic');
 
 bgAudio.volume = 0.35;
 sfxHit.volume  = 0.75;
+ bgAudio.playbackRate = 1.5;      // ← THÊM: 1.5x (nhanh hơn 50%)
+bgAudio.preservesPitch = true;   // ← THÊM: giữ nguyên cao độ (không bị "chipmunk")
 
 function updateMusicUI(){
   var off = bgAudio.muted || bgAudio.paused;
@@ -1019,7 +1021,7 @@ function showCry(el){
   if(!el) return;
   el.classList.add('crying');
   clearTimeout(el._cryT);
-  el._cryT = setTimeout(function(){ el.classList.remove('crying'); }, 4000);
+  el._cryT = setTimeout(function(){ el.classList.remove('crying'); }, 2000);
 }
 
 /* ============ ATTACK ANIMATIONS ============ */
