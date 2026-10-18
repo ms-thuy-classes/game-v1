@@ -328,6 +328,7 @@
 <canvas id="bubbles"></canvas>
 <audio id="bgMusic" loop preload="auto" src="bgm.mp3"></audio>
 <audio id="sfxHit"  preload="auto" src="hit.mp3"></audio>
+  <audio id="sfxVictory"       preload="auto" src="victory.mp3"></audio>
 
 
 <button class="music-btn" id="btnMusic" aria-label="Bật/tắt nhạc nền">
@@ -540,10 +541,12 @@ function later(fn, ms){ var t = setTimeout(fn, ms); timers.push(t); return t; }
 /* ============ MUSIC & SFX (local files) ============ */
 var bgAudio  = document.getElementById('bgMusic');
 var sfxHit   = document.getElementById('sfxHit');
+var sfxVictory = document.getElementById('sfxVictory'); 
 var musicBtn = document.getElementById('btnMusic');
 
 bgAudio.volume = 0.35;
 sfxHit.volume  = 0.75;
+sfxVictory.volume = 0.85;
  bgAudio.playbackRate = 1.5;      // ← THÊM: 1.5x (nhanh hơn 50%)
 bgAudio.preservesPitch = true;   // ← THÊM: giữ nguyên cao độ (không bị "chipmunk")
 
@@ -563,6 +566,24 @@ function startMusic(){
       console.warn('[Music] play() rejected:', err && err.name);
     });
   }
+  function playVictory(){
+  // Tắt nhạc nền để victory nổi bật
+  bgAudio.pause();
+  try{
+    sfxVictory.currentTime = 0;
+    var p = sfxVictory.play();
+    if(p && p.catch) p.catch(function(err){
+      console.warn('[Victory] play() rejected:', err && err.name);
+    });
+  }catch(e){}
+}
+
+function stopVictory(){
+  try{
+    sfxVictory.pause();
+    sfxVictory.currentTime = 0;
+  }catch(e){}
+}
   updateMusicUI();
 }
 
@@ -1154,6 +1175,7 @@ function endGame(by){
       ? 'Bạn đã trở thành Tân Vương Đại Dương!'
       : p1Label + ' đã trở thành Tân Vương Đại Dương!';
     launchConfetti();
+    playVictory();  
   } else {
     title.textContent = 'THUA CUỘC';
     title.className = 'result-title lose';
@@ -1229,6 +1251,10 @@ document.getElementById('btnBeginGame').addEventListener('click', function(){
 });
 document.getElementById('btnAgain').addEventListener('click', function(){
   document.getElementById('confetti').innerHTML = '';
+  stopVictory();                 // ← THÊM: dừng victory
+  bgAudio.paused = false;        // đề phòng bgAudio bị pause từ trước
+  bgAudio.play().catch(function(){});   // ← THÊM: bật lại nhạc nền
+  updateMusicUI();
   show('start');
 });
 
