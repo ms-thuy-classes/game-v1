@@ -489,163 +489,177 @@ var CROWN_SM = '<svg class="winner-crown" viewBox="0 0 64 44" fill="none"><path 
 
 /* ============ QUESTION BANK (Câu hỏi)  ============ */
 var QUESTIONS = [
-  // --- DẠNG 1: ĐIỀN TỪ VÀO CÂU (FILL IN THE BLANKS) ---
+  // --- DẠNG 1: DỊCH TỪ VIỆT SANG TRUNG (TRANSLATE WORDS) ---
   {
-    q: "The origin of the universe is still a ________ among scientists.",
-    o: ["matter of speculation", "acceleration", "adjunct", "attraction"],
+    q: "Từ nào dưới đây nghĩa là 'Mẹ'?",
+    o: ["妈妈", "爸爸", "妹妹", "哥哥"],
     a: 0
   },
   {
-    q: "All employees must ________ the safety regulations strictly.",
-    o: ["accompany", "adhere to", "accommodate", "accumulate"],
+    q: "Từ nào dưới đây nghĩa là 'Số 8'?",
+    o: ["五", "八", "一", "大"],
     a: 1
   },
   {
-    q: "The building has a ramp to make it ________ to wheelchair users.",
-    o: ["absurd", "adjacent", "accessible", "abstract"],
+    q: "Từ nào dưới đây nghĩa là 'Khó'?",
+    o: ["好", "忙", "难", "太"],
     a: 2
   },
   {
-    q: "It is completely ________ to suggest that he can run 100km per hour.",
-    o: ["acceptable", "absurd", "accomplished", "added"],
+    q: "Từ nào dưới đây nghĩa là 'Rất'?",
+    o: ["不", "很", "吗", "口"],
     a: 1
   },
   {
-    q: "The main hall can ________ up to 500 guests comfortable.",
-    o: ["account for", "accommodate", "acknowledge", "accentuate"],
+    q: "Từ nào dưới đây nghĩa là 'Con gái / Nữ'?",
+    o: ["男", "女", "马", "白"],
     a: 1
   },
   {
-    q: "Children must be ________ by an adult at all times.",
-    o: ["accompanied", "accumulated", "acquired", "adapted"],
+    q: "Từ nào dưới đây nghĩa là 'Anh trai'?",
+    o: ["弟弟", "哥哥", "爸爸", "妹妹"],
+    a: 1
+  },
+  {
+    q: "Từ nào dưới đây nghĩa là 'Không'?",
+    o: ["不", "好", "很", "吗"],
     a: 0
   },
   {
-    q: "She is an ________ pianist who has won many international awards.",
-    o: ["absurd", "adjacent", "accomplished", "added"],
+    q: "Từ nào dưới đây nghĩa là 'Con ngựa'?",
+    o: ["白", "口", "马", "女"],
+    a: 2
+  },
+
+  // --- DẠNG 2: DỊCH CÂU VIỆT SANG TRUNG (TRANSLATE SENTENCES) ---
+  {
+    q: "Dịch câu: 'Bố tôi rất bận.'",
+    o: [
+      "我爸爸不忙。",
+      "我爸爸很忙。",
+      "我妈妈很忙。",
+      "我爸爸很好。"
+    ],
+    a: 1
+  },
+  {
+    q: "Dịch câu: 'Tiếng Trung không khó lắm.'",
+    o: [
+      "汉语很难。",
+      "汉语不太难。",
+      "汉语好难。",
+      "汉语不难吗？"
+    ],
+    a: 1
+  },
+  {
+    q: "Dịch câu: 'Cô ấy là bạn gái tôi.'",
+    o: [
+      "她是我的女朋友。",
+      "他是我的男朋友。",
+      "她是我的妹妹。",
+      "她是我的妈妈。"
+    ],
+    a: 0
+  },
+  {
+    q: "Dịch câu: 'Anh ấy là anh trai bạn phải không?'",
+    o: [
+      "他是你的弟弟吗？",
+      "他是你的哥哥吗？",
+      "她是你的哥哥。",
+      "他是我的哥哥吗？"
+    ],
+    a: 1
+  },
+  {
+    q: "Dịch câu: 'Tôi không khỏe.'",
+    o: [
+      "很好。",
+      "我很好。",
+      "我不好。",
+      "我不太忙。"
+    ],
     a: 2
   },
   {
-    q: "You must plan your budget ________ to avoid running out of money.",
-    o: ["accurately", "actually", "accordingly", "abstractly"],
-    a: 2
-  },
-  {
-    q: "High prices ________ the lower sales this quarter.",
-    o: ["account for", "adhere to", "admit to", "acquire for"],
-    a: 0
-  },
-  {
-    q: "Dust and dirt began to ________ on the unused furniture.",
-    o: ["accentuate", "accumulate", "acknowledge", "adjust"],
+    q: "Dịch câu: 'Nhà anh ấy có 5 người.'",
+    o: [
+      "他家有八个人。",
+      "他家有五个人。",
+      "我家有五个人。",
+      "他家有一个人。"
+    ],
     a: 1
   },
   {
-    q: "Please measure the dimensions of the room ________.",
-    o: ["accurately", "accordingly", "actually", "absurdly"],
-    a: 0
+    q: "Dịch câu: 'Em trai tôi 8 tuổi.'",
+    o: [
+      "我的弟弟五岁。",
+      "我的哥哥八岁。",
+      "我的弟弟八岁。",
+      "我的妹妹八岁。"
+    ],
+    a: 2
   },
   {
-    q: "The two companies built their new offices in ________ buildings.",
-    o: ["abstract", "adjacent", "acceptable", "accomplished"],
+    q: "Dịch câu: 'Chào bạn, bạn khỏe không?'",
+    o: [
+      "你好，你忙吗？",
+      "你好，你好吗？",
+      "你好，你太好。",
+      "你好吗？"
+    ],
     a: 1
   },
 
-  // --- DẠNG 2: DỊCH TỪ / CỤM TỪ (TRANSLATION) ---
+  // --- DẠNG 3: ĐIỀN TỪ VÀO CÂU (FILL IN THE BLANKS) ---
   {
-    q: "Từ nào trong tiếng Anh có nghĩa là 'làm nổi bật, nhấn mạnh'?",
-    o: ["Accommodate", "Accentuate", "Acknowledge", "Acquire"],
+    q: "Điền từ vào chỗ trống: 他是我的 ________ 朋友。(Anh ấy là bạn trai tôi.)",
+    o: ["女", "男", "马", "白"],
     a: 1
   },
   {
-    q: "Từ 'adjunct' trong tiếng Anh mang nghĩa là gì?",
-    o: ["Sự tăng tốc", "Trừu tượng", "Hỗ trợ, phụ", "Tuân thủ"],
+    q: "Điền từ vào chỗ trống: 一只 ________ 猫。(Một chú mèo màu trắng.)",
+    o: ["白", "大", "口", "女"],
+    a: 0
+  },
+  {
+    q: "Điền từ vào chỗ trống: 你的 ________ 几岁？(Em gái của bạn mấy tuổi?)",
+    o: ["哥哥", "弟弟", "妹妹", "爸爸"],
     a: 2
   },
   {
-    q: "Từ nào đồng nghĩa với 'đạt được, thu được' (kỹ năng, kiến thức)?",
-    o: ["Adhere", "Acquire", "Admit", "Accompany"],
+    q: "Điền từ vào chỗ trống: 你 ________ 吗？(Bạn bận không?)",
+    o: ["好", "忙", "大", "难"],
     a: 1
   },
   {
-    q: "Từ 'acknowledge' trong tiếng Anh có nghĩa là gì?",
-    o: ["Thừa nhận", "Điều chỉnh", "Dành được", "Bám dính"],
-    a: 0
-  },
-  {
-    q: "Cụm từ nào nghĩa là 'bám / dính vào nhau'?",
-    o: ["Adhere to", "Adhere", "Account for", "Accorded"],
-    a: 1
-  },
-  {
-    q: "Từ 'attraction' có nghĩa là gì?",
-    o: ["Sự hấp dẫn, quyến rũ", "Sự phỏng đoán", "Sự tăng tốc", "Sự tiếp cận"],
-    a: 0
-  },
-  {
-    q: "Từ 'acceleration' trong tiếng Anh chỉ điều gì?",
-    o: ["Sự điều chỉnh", "Sự tích lũy", "Sự tăng tốc", "Sự thích ứng"],
+    q: "Điền từ vào chỗ trống: 汉语 ________ 难。(Tiếng Trung rất khó.)",
+    o: ["不", "吗", "很", "口"],
     a: 2
   },
   {
-    q: "Từ 'admit' mang nghĩa là gì?",
-    o: ["Dành được", "Nhận, cho phép vào trong", "Thích ứng", "Giải thích"],
-    a: 1
-  },
-
-  // --- DẠNG 3: SẮP XẾP CÂU / CẤU TRÚC (SENTENCE ARRANGEMENT) ---
-  {
-    q: "Chọn thứ tự từ đúng để tạo thành câu hoàn chỉnh: 'makeup / Her / natural / accentuates / beauty. / her'",
-    o: [
-      "Her makeup accentuates her natural beauty.",
-      "Her natural beauty accentuates her makeup.",
-      "Makeup her accentuates natural her beauty.",
-      "Her beauty accentuates natural her makeup."
-    ],
+    q: "Điền từ vào chỗ trống: 我 ________ 太好。(Tôi không khỏe lắm.)",
+    o: ["不", "很", "太", "好"],
     a: 0
   },
   {
-    q: "Chọn thứ tự đúng: 'must / rules. / to / You / adhere / the'",
-    o: [
-      "You must adhere rules to the.",
-      "You must adhere to the rules.",
-      "You adhere must to the rules.",
-      "The rules must adhere to you."
-    ],
+    q: "Điền từ vào chỗ trống: 他的 ________ 很大。(Miệng của anh ấy rất rộng.)",
+    o: ["马", "口", "白", "女"],
     a: 1
   },
   {
-    q: "Chọn thứ tự đúng: 'for / 50% / accounts / Exports / total / of / revenue.'",
-    o: [
-      "Exports total accounts for 50% of revenue.",
-      "Revenue accounts for 50% of total exports.",
-      "Exports account for 50% of total revenue.",
-      "Accounts for exports 50% of total revenue."
-    ],
+    q: "Điền từ vào chỗ trống: 你好 ________ ？(Bạn khỏe không?)",
+    o: ["不", "很", "吗", "太"],
     a: 2
   },
   {
-    q: "Chọn thứ tự đúng: 'He / mistakes. / his / refused / acknowledge / to'",
-    o: [
-      "He refused to acknowledge his mistakes.",
-      "He acknowledged to refuse his mistakes.",
-      "His mistakes refused to acknowledge he.",
-      "He to acknowledge refused his mistakes."
-    ],
+    q: "Điền từ vào chỗ trống: 今天工作 ________ 忙了！(Hôm nay công việc quá bận rồi!)",
+    o: ["太", "不", "吗", "口"],
     a: 0
-  },
-  {
-    q: "Chọn thứ tự đúng: 'was / into / allowed / hospital. / She / to / be / admitted / the'",
-    o: [
-      "She was admitted to be allowed into the hospital.",
-      "She was allowed to be admitted into the hospital.",
-      "Allowed to be admitted she was into the hospital.",
-      "She admitted to be allowed into the hospital."
-    ],
-    a: 1
   }
 ];
-
 /* ============ SETTINGS ============ */
 var TOTAL_Q = QUESTIONS.length, TIME_LIMIT = 15, MAX_LIVES = 7, AI_ACCURACY = 0.62;
 
