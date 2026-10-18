@@ -326,7 +326,8 @@
 </head>
 <body>
 <canvas id="bubbles"></canvas>
-
+<audio id="bgMusic" loop preload="auto" src="bgm.mp3"></audio>
+<audio id="sfxHit"  preload="auto" src="hit.mp3"></audio>
 
 
 <button class="music-btn" id="btnMusic" aria-label="Bật/tắt nhạc nền">
@@ -536,138 +537,71 @@ function clearTimers(){
   if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
 }
 function later(fn, ms){ var t = setTimeout(fn, ms); timers.push(t); return t; }
-/* ============ MUSIC (Procedural - Web Audio API) ============ */
-var audioCtx = null;
-var musicPlaying = false;
-var musicMuted = false;
-var musicMaster = null;
-var musicOscillators = [];
-var musicTimers = [];
+/* ============ MUSIC & SFX (local files) ============ */
+var bgAudio  = document.getElementById('bgMusic');
+var sfxHit   = document.getElementById('sfxHit');
 var musicBtn = document.getElementById('btnMusic');
 
-function ensureAudioCtx(){
-  if(!audioCtx){
-    try{ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
-    catch(e){ console.warn('[Music] Web Audio API không hỗ trợ:', e); return false; }
-  }
-  if(audioCtx.state === 'suspended') audioCtx.resume();
-  return true;
-}
+bgAudio.volume = 0.35;
+sfxHit.volume  = 0.75;
 
 function updateMusicUI(){
-  var off = musicMuted || !musicPlaying;
+  var off = bgAudio.muted || bgAudio.paused;
   musicBtn.classList.toggle('muted', off);
   musicBtn.querySelector('.ico-on').style.display  = off ? 'none' : '';
   musicBtn.querySelector('.ico-off').style.display = off ? '' : 'none';
 }
 
-function playPulse(){
-  if(!audioCtx || !musicMaster) return;
-  var now = audioCtx.currentTime;
-  var osc = audioCtx.createOscillator();
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(95, now);
-  osc.frequency.exponentialRampToValueAtTime(35, now + 0.18);
-  var g = audioCtx.createGain();
-  g.gain.setValueAtTime(0.0001, now);
-  g.gain.exponentialRampToValueAtTime(0.5, now + 0.015);
-  g.gain.exponentialRampToValueAtTime(0.0001, now + 0.4);
-  osc.connect(g); g.connect(musicMaster);
-  osc.start(now); osc.stop(now + 0.5);
-}
-
-function playStab(){
-  if(!audioCtx || !musicMaster) return;
-  var now = audioCtx.currentTime;
-  var notes = [220, 246.94, 261.63, 311.13];
-  var root = notes[Math.floor(Math.random() * notes.length)];
-  var o1 = audioCtx.createOscillator(); o1.type = 'sawtooth'; o1.frequency.value = root;
-  var o2 = audioCtx.createOscillator(); o2.type = 'sawtooth'; o2.frequency.value = root * 1.007;
-  var f = audioCtx.createBiquadFilter(); f.type = 'lowpass';
-  f.frequency.setValueAtTime(2400, now);
-  f.frequency.exponentialRampToValueAtTime(350, now + 1.8);
-  var g = audioCtx.createGain();
-  g.gain.setValueAtTime(0.0001, now);
-  g.gain.exponentialRampToValueAtTime(0.085, now + 0.25);
-  g.gain.exponentialRampToValueAtTime(0.0001, now + 2.0);
-  o1.connect(f); o2.connect(f); f.connect(g); g.connect(musicMaster);
-  o1.start(now); o2.start(now);
-  o1.stop(now + 2.1); o2.stop(now + 2.1);
-}
-
 function startMusic(){
-  if(musicPlaying) return;
-  if(!ensureAudioCtx()) return;
-  musicMuted = false;
-
-  musicMaster = audioCtx.createGain();
-  musicMaster.gain.value = 0.25;
-  musicMaster.connect(audioCtx.destination);
-
-  // Bass drone A1 (nền nghiêm trọng)
-  var drone = audioCtx.createOscillator();
-  drone.type = 'sine'; drone.frequency.value = 55;
-  var droneG = audioCtx.createGain(); droneG.gain.value = 0.42;
-  drone.connect(droneG); droneG.connect(musicMaster); drone.start();
-
-  // Bồi âm E2
-  var drone2 = audioCtx.createOscillator();
-  drone2.type = 'triangle'; drone2.frequency.value = 82.5;
-  var drone2G = audioCtx.createGain(); drone2G.gain.value = 0.12;
-  drone2.connect(drone2G); drone2G.connect(musicMaster); drone2.start();
-
-  // LFO làm drone "thở" chậm — tạo cảm giác hồi hộp
-  var lfo = audioCtx.createOscillator();
-  lfo.type = 'sine'; lfo.frequency.value = 0.12;
-  var lfoG = audioCtx.createGain(); lfoG.gain.value = 0.2;
-  lfo.connect(lfoG); lfoG.connect(droneG.gain); lfo.start();
-
-  musicOscillators = [drone, drone2, lfo];
-  musicPlaying = true;
-
-  // Nhịp tim đều đặn + thỉnh thoảng stab căng thẳng
-  musicTimers.push(setInterval(playPulse, 1100));
-  musicTimers.push(setInterval(function(){
-    if(Math.random() < 0.45) playStab();
-  }, 4500));
-
+  if(!bgAudio.paused) return;
+  bgAudio.muted = false;
+  var p = bgAudio.play();
+  if(p && p.catch){
+    p.catch(function(err){
+      console.warn('[Music] play() rejected:', err && err.name);
+    });
+  }
   updateMusicUI();
 }
 
-function stopMusic(){
-  musicPlaying = false;
-  musicMuted = false;
-  musicTimers.forEach(function(t){ clearInterval(t); });
-  musicTimers = [];
-  musicOscillators.forEach(function(o){ try{ o.stop(); }catch(e){} });
-  musicOscillators = [];
-  if(musicMaster){ try{ musicMaster.disconnect(); }catch(e){} musicMaster = null; }
-  updateMusicUI();
-}
-
-// Mở khoá audio ở gesture đầu tiên (bất kỳ đâu trừ nút loa)
 function unlockMusic(e){
   if(e && e.target && e.target.closest && e.target.closest('#btnMusic')) return;
-  if(!musicPlaying) startMusic();
+  if(bgAudio.paused) startMusic();
 }
 document.addEventListener('pointerdown', unlockMusic);
 document.addEventListener('keydown', unlockMusic);
 document.addEventListener('touchstart', unlockMusic, {passive:true});
 
-// Nút loa: bật / tắt
 musicBtn.addEventListener('click', function(e){
   e.stopPropagation();
-  if(!musicPlaying){ startMusic(); return; }
-  musicMuted = !musicMuted;
-  if(musicMaster){
-    musicMaster.gain.setTargetAtTime(
-      musicMuted ? 0.0001 : 0.25,
-      audioCtx.currentTime,
-      0.1
-    );
+  if(bgAudio.paused){
+    bgAudio.muted = false;
+    startMusic();
+  } else if(bgAudio.muted){
+    bgAudio.muted = false;
+    bgAudio.play().catch(function(){});
+  } else {
+    bgAudio.muted = true;
   }
   updateMusicUI();
 });
+
+// Báo lỗi rõ ràng nếu không đọc được file
+bgAudio.addEventListener('error', function(){
+  console.error('[Music] Không tải được bgm.mp3 — kiểm tra: (1) file có cùng thư mục HTML? (2) tên đúng "bgm.mp3"? (3) chạy qua server (http://) chứ không phải mở trực tiếp file:// ?');
+});
+sfxHit.addEventListener('error', function(){
+  console.error('[SFX] Không tải được hit.mp3 — kiểm tra tên và vị trí file.');
+});
+
+// Phát tiếng đánh — gọi mỗi khi có đòn trúng
+function playHitSound(){
+  try{
+    sfxHit.currentTime = 0;
+    var p = sfxHit.play();
+    if(p && p.catch) p.catch(function(){});
+  }catch(e){}
+}
 
 updateMusicUI();
 /* ============ SCREEN SWITCHING ============ */
@@ -1129,6 +1063,7 @@ function runAttackSequence(seq, done){
 }
 
 function spawnImpact(type, targetPos, arenaRect, fxLayer, targetEl, arena){
+    playHitSound();     
   var x = targetPos.left - arenaRect.left + targetPos.width/2;
   var y = targetPos.top - arenaRect.top + targetPos.height/2;
 
